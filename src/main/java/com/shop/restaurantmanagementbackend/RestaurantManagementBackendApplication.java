@@ -1,0 +1,13 @@
+package com.shop.restaurantmanagementbackend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RestaurantManagementBackendApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RestaurantManagementBackendApplication.class, args);
+    }
+
+}
