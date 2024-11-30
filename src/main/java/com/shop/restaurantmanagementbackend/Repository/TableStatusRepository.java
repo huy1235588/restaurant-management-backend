@@ -1,0 +1,7 @@
+package com.shop.restaurantmanagementbackend.Repository;
+
+import com.shop.restaurantmanagementbackend.Models.TableStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TableStatusRepository extends JpaRepository<TableStatus, Integer> {
+}

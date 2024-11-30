@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: restaurant-management-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/restaurantmanagement
+    username: root
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  data:
+    jdbc:
+      dialect: mysql

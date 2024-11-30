@@ -19,7 +19,6 @@ public class WebsocketController {
     @MessageMapping("/status") // Lắng nghe cập nhật trạng thái món ăn
     @SendTo("/topic/waiter") // Gửi tới các client đăng ký /topic/waiter
     public StatusModel updateStatus(StatusModel status) {
-        System.out.println("Status updated: " + status);
         return status; // Trả về trạng thái để gửi tới phục vụ
     }
 }
