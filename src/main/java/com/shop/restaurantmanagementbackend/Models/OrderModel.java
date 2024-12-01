@@ -8,9 +8,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class OrderModel {
-    private String tableId;
+    private int tableId;
     private String itemId;
     private String itemName;
     private int quantity;
-    private Date timeSubmitted;
+    private Date orderAt;
 }

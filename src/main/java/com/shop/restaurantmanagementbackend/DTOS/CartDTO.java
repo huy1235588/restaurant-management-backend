@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CartDTO {
-    private int itemId;
+    private String itemId;
     private String itemName;
     private double price;
     private int quantity;
@@ -19,7 +19,7 @@ public class CartDTO {
     private int tableId;
     private LocalDateTime orderAt;
 
-    public CartDTO(int itemId, String itemName, double price, int quantity, String status, int tableId) {
+    public CartDTO(String itemId, String itemName, double price, int quantity, String status, int tableId) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.price = price;
@@ -28,7 +28,7 @@ public class CartDTO {
         this.tableId = tableId;
     }
 
-    public CartDTO(int itemId, String itemName, int quantity, LocalDateTime orderAt, int tableId) {
+    public CartDTO(String itemId, String itemName, int quantity, LocalDateTime orderAt, int tableId) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.quantity = quantity;

@@ -21,7 +21,7 @@ public class Cart {
 
     @Id
     @Column(name = "itemId")
-    private int itemId;
+    private String itemId;
 
     @ManyToOne
     @JoinColumn(name = "tableId", insertable = false, updatable = false)

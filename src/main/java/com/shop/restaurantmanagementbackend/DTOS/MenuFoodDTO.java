@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 public class MenuFoodDTO {
-    private int itemId;
+    private String itemId;
     private String itemName;
     private String category;
     private double price;

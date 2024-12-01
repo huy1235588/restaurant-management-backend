@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatusModel {
-    private String tableId;
+    private int tableId;
     private String itemId;
     private String status;
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 public class MenuFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
+    private String itemId;
 
     private String itemName;
 

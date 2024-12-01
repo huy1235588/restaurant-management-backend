@@ -22,23 +22,6 @@ public class CartId implements Serializable {
 
     @Id
     @Column(name = "itemId")
-    private int itemId;
+    private String itemId;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CartId cartId = (CartId) o;
-
-        if (tableId != cartId.tableId) return false;
-        return itemId == cartId.itemId;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = tableId;
-        result = 31 * result + itemId;
-        return result;
-    }
 }
