@@ -34,7 +34,7 @@ public class CartService {
         return carts;
     }
 
-public List<CartDTO> getAllCarts() {
+    public List<CartDTO> getAllCarts() {
         List<CartDTO> carts = cartRepository.findCartsWithItemNameCarts();
 
         if (carts == null || carts.isEmpty()) {
@@ -97,5 +97,13 @@ public List<CartDTO> getAllCarts() {
         cartRepository.saveAll(carts); // Lưu vào DB
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Cart added successfully.");
+    }
+
+    public boolean updateStatusCart(int tableId, String itemId, String status) {
+        // `updateStatusCart` trả về số hàng bị ảnh hưởng (0 nếu không có hàng nào)
+        int updatedRows = cartRepository
+                .updateStatusCart(tableId, itemId, status);
+
+        return updatedRows > 0;
     }
 }
