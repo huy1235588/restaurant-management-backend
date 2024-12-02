@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# SSL
+*.p12
+
+# Ignore application.yml file
+application.yml
