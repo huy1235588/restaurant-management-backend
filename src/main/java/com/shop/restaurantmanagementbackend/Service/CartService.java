@@ -44,6 +44,16 @@ public class CartService {
         return carts;
     }
 
+    public List<CartDTO> getCartPending(){
+        List<CartDTO> carts = cartRepository.findCartsByStatusPending();
+
+        if (carts == null || carts.isEmpty()) {
+            return null;
+        }
+
+        return carts;
+    }
+
     public ResponseEntity<String> addListToCart(List<CartDTO> cartDTOList) {
         // Kiểm tra có rỗng
         if (cartDTOList == null || cartDTOList.isEmpty()) {

@@ -25,6 +25,11 @@ public class CartController {
         return cartService.getAllCarts();
     }
 
+    @GetMapping("/pending")
+    public List<CartDTO> getPendingCarts() {
+        return cartService.getCartPending();
+    }
+
     @PostMapping
     public ResponseEntity<String> addListToCart(@RequestBody List<CartDTO> cartDTO) {
         return cartService.addListToCart(cartDTO);

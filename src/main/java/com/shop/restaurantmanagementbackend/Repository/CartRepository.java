@@ -23,6 +23,11 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
             "FROM Cart c LEFT JOIN MenuFood mf ON c.itemId = mf.itemId ")
     List<CartDTO> findCartsWithItemNameCarts();
 
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.itemId, mf.itemName, c.quantity,  c.orderAt, c.tableId) " +
+            "FROM Cart c LEFT JOIN MenuFood mf ON c.itemId = mf.itemId " +
+            "WHERE c.status = 'pending'")
+    List<CartDTO> findCartsByStatusPending();
+
     @Modifying
     @Transactional
     @Query("UPDATE Cart c " +
