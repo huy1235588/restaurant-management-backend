@@ -34,6 +34,3 @@ build/
 
 # SSL
 *.p12
-
-# Ignore application.yml file
-application.yml
