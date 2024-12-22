@@ -12,26 +12,31 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, CartId> {
-    List<Cart> findCartsByTableStatus_TableId(int tableStatusTableId);
+    // Lấy tất cả giỏ hàng theo tableId
+    List<Cart> findCartByTablesId(Integer tableStatusTableId);
 
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.itemId, mf.itemName, mf.price, c.quantity, c.status, c.tableId) " +
-            "FROM Cart c LEFT JOIN MenuFood mf ON c.itemId = mf.itemId " +
-            "WHERE c.tableId = :tableId")
-    List<CartDTO> findCartsWithItemNameByTableIdCarts(@Param("tableId") int tableId);
+    // Truy vấn để lấy Cart với tên món ăn và các thông tin khác theo tableId
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, mf.price, c.quantity, c.status, c.tables.id) " +
+            "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId " +
+            "WHERE c.tables.id = :tableId")
+    List<CartDTO> findCartsWithItemNameByTableIdCarts(@Param("tableId") Integer tableId);
 
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.itemId, mf.itemName, c.quantity,  c.orderAt, c.tableId) " +
-            "FROM Cart c LEFT JOIN MenuFood mf ON c.itemId = mf.itemId ")
+    // Truy vấn để lấy tất cả Cart với tên món ăn
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.tables.id) " +
+            "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId ")
     List<CartDTO> findCartsWithItemNameCarts();
 
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.itemId, mf.itemName, c.quantity,  c.orderAt, c.tableId) " +
-            "FROM Cart c LEFT JOIN MenuFood mf ON c.itemId = mf.itemId " +
+    // Truy vấn để lấy tất cả Cart có trạng thái 'pending'
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.tables.id) " +
+            "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId " +
             "WHERE c.status = 'pending'")
     List<CartDTO> findCartsByStatusPending();
 
+    // Cập nhật trạng thái của Cart theo tableId và itemId
     @Modifying
     @Transactional
     @Query("UPDATE Cart c " +
             "SET c.status = :status " +
-            "where c.tableId = :tableId and c.itemId = :itemId")
-    int updateStatusCart(@Param("tableId") int tableId, @Param("itemId") String itemId, @Param("status") String status);
+            "where c.tables.id = :tableId and c.item.itemId = :itemId")
+    int updateStatusCart(@Param("tableId") Integer tableId, @Param("itemId") String itemId, @Param("status") String status);
 }

@@ -2,6 +2,8 @@ package com.shop.restaurantmanagementbackend.DTOS;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,25 +15,25 @@ import java.time.LocalDateTime;
 public class CartDTO {
     private String itemId;
     private String itemName;
-    private double price;
-    private int quantity;
+    private BigDecimal itemPrice;
+    private int itemQuantity;
     private String status;
     private int tableId;
-    private LocalDateTime orderAt;
+    private Instant orderAt;
 
-    public CartDTO(String itemId, String itemName, double price, int quantity, String status, int tableId) {
+    public CartDTO(String itemId, String itemName, BigDecimal itemPrice, int itemQuantity, String status, int tableId) {
         this.itemId = itemId;
         this.itemName = itemName;
-        this.price = price;
-        this.quantity = quantity;
+        this.itemPrice = itemPrice;
+        this.itemQuantity = itemQuantity;
         this.status = status;
         this.tableId = tableId;
     }
 
-    public CartDTO(String itemId, String itemName, int quantity, LocalDateTime orderAt, int tableId) {
+    public CartDTO(String itemId, String itemName, int itemQuantity, Instant orderAt, int tableId) {
         this.itemId = itemId;
         this.itemName = itemName;
-        this.quantity = quantity;
+        this.itemQuantity = itemQuantity;
         this.orderAt = orderAt;
         this.tableId = tableId;
     }

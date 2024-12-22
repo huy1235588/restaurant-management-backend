@@ -1,6 +1,5 @@
 package com.shop.restaurantmanagementbackend.DTOS;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
@@ -9,8 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TableStatusDTO {
+public class TableDTO {
     private int tableId;
+
+    private String tableName;
 
     private int capacity;
 

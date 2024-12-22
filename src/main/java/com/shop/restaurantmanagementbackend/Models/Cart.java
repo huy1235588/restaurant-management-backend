@@ -1,40 +1,44 @@
 package com.shop.restaurantmanagementbackend.Models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@IdClass(CartId.class)
+@Table(name = "cart", schema = "restaurantmanagement")
 public class Cart {
-    @Id
-    @Column(name = "tableId")
-    private int tableId;
+    @EmbeddedId
+    private CartId id;
 
-    @Id
-    @Column(name = "itemId")
-    private String itemId;
+    @MapsId("tableId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tableId", nullable = false)
+    private Tables tables;
 
-    @ManyToOne
-    @JoinColumn(name = "tableId", insertable = false, updatable = false)
-    private TableStatus tableStatus;
+    @MapsId("itemId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "itemId", nullable = false)
+    private MenuFood item;
 
-    @ManyToOne
-    @JoinColumn(name = "itemId", insertable = false, updatable = false)
-    private MenuFood menuFood;
+    @NotNull
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
-    private int quantity;
-
+    @NotNull
+    @Lob
+    @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "orderAt", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime orderAt;
+    @NotNull
+    @ColumnDefault("current_timestamp()")
+    @Column(name = "orderAt", nullable = false)
+    private Instant orderAt;
+
 }

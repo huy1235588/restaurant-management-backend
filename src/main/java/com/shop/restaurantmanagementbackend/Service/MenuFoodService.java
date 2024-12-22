@@ -22,7 +22,7 @@ public class MenuFoodService {
                 .map(menuFood -> new MenuFoodDTO(
                         menuFood.getItemId(),
                         menuFood.getItemName(),
-                        menuFood.getCategory(),
+                        menuFood.getCategory().getId(),
                         menuFood.getPrice()
                 )).collect(Collectors.toList());
     }

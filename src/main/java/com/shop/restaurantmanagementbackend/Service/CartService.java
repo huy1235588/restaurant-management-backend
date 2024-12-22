@@ -2,16 +2,18 @@ package com.shop.restaurantmanagementbackend.Service;
 
 import com.shop.restaurantmanagementbackend.DTOS.CartDTO;
 import com.shop.restaurantmanagementbackend.Models.Cart;
+import com.shop.restaurantmanagementbackend.Models.CartId;
 import com.shop.restaurantmanagementbackend.Models.MenuFood;
-import com.shop.restaurantmanagementbackend.Models.TableStatus;
+import com.shop.restaurantmanagementbackend.Models.Tables;
 import com.shop.restaurantmanagementbackend.Repository.CartRepository;
 import com.shop.restaurantmanagementbackend.Repository.MenuFoodRepository;
-import com.shop.restaurantmanagementbackend.Repository.TableStatusRepository;
+import com.shop.restaurantmanagementbackend.Repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
     @Autowired
-    private TableStatusRepository tableStatusRepository;
+    private TableRepository tableStatusRepository;
     @Autowired
     private MenuFoodRepository menuFoodRepository;
 
@@ -44,7 +46,7 @@ public class CartService {
         return carts;
     }
 
-    public List<CartDTO> getCartPending(){
+    public List<CartDTO> getCartPending() {
         List<CartDTO> carts = cartRepository.findCartsByStatusPending();
 
         if (carts == null || carts.isEmpty()) {
@@ -64,7 +66,7 @@ public class CartService {
         int tableId = cartDTOList.getFirst().getTableId();
 
         // Xóa tất cả giỏ hàng cũ của tableId
-        List<Cart> existingCarts = cartRepository.findCartsByTableStatus_TableId(tableId);
+        List<Cart> existingCarts = cartRepository.findCartByTablesId(tableId);
         // Xóa các mục giỏ hàng cũ
         cartRepository.deleteAll(existingCarts);
 
@@ -73,11 +75,11 @@ public class CartService {
         List<Cart> carts = new ArrayList<>();
 
         for (CartDTO cartDTO : cartDTOList) {
-            TableStatus tableStatus = tableStatusRepository
+            Tables tables = tableStatusRepository
                     .findById(cartDTO.getTableId())
                     .orElse(null);
 
-            if (tableStatus == null) {
+            if (tables == null) {
                 return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body("TableStatus not found for id: " + cartDTO.getTableId());
@@ -93,13 +95,22 @@ public class CartService {
                         .body("MenuFood not found for id: " + cartDTO.getItemId());
             }
 
+            // Khởi tạo Cart mới
             Cart cart = new Cart();
-            cart.setTableId(tableId);
-            cart.setItemId(cartDTO.getItemId());
-            cart.setQuantity(cartDTO.getQuantity());
+
+            // Khởi tạo khoa chính
+            CartId cartId = new CartId();
+            cartId.setTableId(tableId);
+            cartId.setItemId(cartDTO.getItemId());
+
+            // Gán vào Cart
+            cart.setId(cartId);
+
+            cart.setItem(menuFood);
+            cart.setQuantity(cartDTO.getItemQuantity());
             cart.setStatus(cartDTO.getStatus());
-            cart.setMenuFood(menuFood);
-            cart.setTableStatus(tableStatus);
+            cart.setOrderAt(Instant.now());
+            cart.setTables(tables);
 
             carts.add(cart);
         }
