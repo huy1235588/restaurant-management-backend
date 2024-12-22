@@ -1,6 +1,9 @@
 package com.shop.restaurantmanagementbackend.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,7 +16,6 @@ import org.hibernate.annotations.ColumnDefault;
 @jakarta.persistence.Table(name = "tables", schema = "restaurantmanagement")
 public class Tables {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tableId", nullable = false)
     private Integer id;
 

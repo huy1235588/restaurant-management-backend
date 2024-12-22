@@ -2,6 +2,8 @@ package com.shop.restaurantmanagementbackend.DTOS;
 
 import lombok.*;
 
+import java.time.Instant;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,7 +15,11 @@ public class TableDTO {
 
     private String tableName;
 
-    private int capacity;
-
     private String status;
+
+    private Integer capacity;
+
+    private Integer billId;
+
+    private Instant reservedTime;
 }

@@ -1,6 +1,8 @@
 package com.shop.restaurantmanagementbackend.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,7 +15,6 @@ import lombok.Setter;
 @Table(name = "category", schema = "restaurantmanagement")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryId", nullable = false)
     private Integer id;
 

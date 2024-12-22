@@ -20,7 +20,7 @@ public class Cart {
     @MapsId("tableId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "tableId", nullable = false)
-    private Tables tables;
+    private Tables table;
 
     @MapsId("itemId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

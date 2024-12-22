@@ -25,11 +25,6 @@ public class TableBooking {
     @JoinColumn(name = "tableId", nullable = false)
     private Tables table;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "billId", nullable = false)
-    private Bill bill;
-
     @Size(max = 150)
     @NotNull
     @Column(name = "customerName", nullable = false, length = 150)
@@ -43,13 +38,17 @@ public class TableBooking {
     private Instant reservedTime;
 
     @NotNull
+    @Column(name = "numberOfGuests", nullable = false)
+    private Integer numberOfGuests;
+
+    @NotNull
     @ColumnDefault("current_timestamp()")
     @Column(name = "createAt", nullable = false)
-    private Instant createAt;
+    private Instant createAt = Instant.now();
 
     @NotNull
     @ColumnDefault("current_timestamp()")
     @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
+    private Instant updatedAt = Instant.now();
 
 }

@@ -66,7 +66,7 @@ public class CartService {
         int tableId = cartDTOList.getFirst().getTableId();
 
         // Xóa tất cả giỏ hàng cũ của tableId
-        List<Cart> existingCarts = cartRepository.findCartByTablesId(tableId);
+        List<Cart> existingCarts = cartRepository.findCartByTableId(tableId);
         // Xóa các mục giỏ hàng cũ
         cartRepository.deleteAll(existingCarts);
 
@@ -110,7 +110,7 @@ public class CartService {
             cart.setQuantity(cartDTO.getItemQuantity());
             cart.setStatus(cartDTO.getStatus());
             cart.setOrderAt(Instant.now());
-            cart.setTables(tables);
+            cart.setTable(tables);
 
             carts.add(cart);
         }

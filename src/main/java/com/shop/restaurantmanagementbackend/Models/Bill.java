@@ -21,11 +21,12 @@ public class Bill {
     private Integer id;
 
     @NotNull
-    @Column(name = "bookingId", nullable = false)
-    private Integer bookingId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bookingId", nullable = false)
+    private TableBooking booking;
 
-    @NotNull
-    @Column(name = "totalAmount", nullable = false, precision = 10, scale = 2)
+    @ColumnDefault("0.00")
+    @Column(name = "totalAmount", precision = 10, scale = 2)
     private BigDecimal totalAmount;
 
     @NotNull
@@ -36,7 +37,7 @@ public class Bill {
     @ColumnDefault("'cash'")
     @Lob
     @Column(name = "paymentMethod")
-    private String paymentMethod = "cash";
+    private String paymentMethod;
 
     @NotNull
     @ColumnDefault("current_timestamp()")
@@ -47,4 +48,5 @@ public class Bill {
     @ColumnDefault("current_timestamp()")
     @Column(name = "updatedAt", nullable = false)
     private Instant updatedAt = Instant.now();
+
 }

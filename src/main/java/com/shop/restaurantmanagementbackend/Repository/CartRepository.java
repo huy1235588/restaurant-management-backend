@@ -13,21 +13,21 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, CartId> {
     // Lấy tất cả giỏ hàng theo tableId
-    List<Cart> findCartByTablesId(Integer tableStatusTableId);
+    List<Cart> findCartByTableId(Integer tableStatusTableId);
 
     // Truy vấn để lấy Cart với tên món ăn và các thông tin khác theo tableId
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, mf.price, c.quantity, c.status, c.tables.id) " +
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, mf.price, c.quantity, c.status, c.table.id) " +
             "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId " +
-            "WHERE c.tables.id = :tableId")
+            "WHERE c.table.id = :tableId")
     List<CartDTO> findCartsWithItemNameByTableIdCarts(@Param("tableId") Integer tableId);
 
     // Truy vấn để lấy tất cả Cart với tên món ăn
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.tables.id) " +
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.table.id) " +
             "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId ")
     List<CartDTO> findCartsWithItemNameCarts();
 
     // Truy vấn để lấy tất cả Cart có trạng thái 'pending'
-    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.tables.id) " +
+    @Query("SELECT new com.shop.restaurantmanagementbackend.DTOS.CartDTO(c.item.itemId, mf.itemName, c.quantity,  c.orderAt, c.table.id) " +
             "FROM Cart c LEFT JOIN MenuFood mf ON c.item.itemId = mf.itemId " +
             "WHERE c.status = 'pending'")
     List<CartDTO> findCartsByStatusPending();
@@ -37,6 +37,6 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
     @Transactional
     @Query("UPDATE Cart c " +
             "SET c.status = :status " +
-            "where c.tables.id = :tableId and c.item.itemId = :itemId")
+            "where c.table.id = :tableId and c.item.itemId = :itemId")
     int updateStatusCart(@Param("tableId") Integer tableId, @Param("itemId") String itemId, @Param("status") String status);
 }
