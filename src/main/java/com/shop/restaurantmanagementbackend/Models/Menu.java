@@ -1,7 +1,6 @@
 package com.shop.restaurantmanagementbackend.Models;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -12,8 +11,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "menufood", schema = "restaurantmanagement")
-public class MenuFood {
+@Table(name = "menu", schema = "restaurantmanagement")
+public class Menu {
     @Id
     @Size(max = 10)
     @Column(name = "itemId", nullable = false, length = 10)
@@ -28,7 +27,11 @@ public class MenuFood {
     @JoinColumn(name = "categoryId")
     private Category category;
 
-    @Column(name = "price", precision = 7, scale = 2)
+    @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
 
 }

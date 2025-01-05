@@ -1,7 +1,7 @@
 package com.shop.restaurantmanagementbackend.Controllers;
 
-import com.shop.restaurantmanagementbackend.DTOS.TableDTO;
-import com.shop.restaurantmanagementbackend.Service.TableService;
+import com.shop.restaurantmanagementbackend.Models.Category;
+import com.shop.restaurantmanagementbackend.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tablestatus")
-public class TableController {
+@RequestMapping("/api/category")
+public class CategoryController {
     @Autowired
-    private TableService tableService;
+    private CategoryService categoryService;
 
     @GetMapping("/all")
-    public List<TableDTO> getAllTableStatus() {
-        return tableService.getAllTableStatus();
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 }

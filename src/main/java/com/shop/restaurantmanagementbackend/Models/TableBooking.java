@@ -1,54 +1,42 @@
 package com.shop.restaurantmanagementbackend.Models;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "tablebooking", schema = "restaurantmanagement")
+@Table(name = "tablebookings", schema = "restaurantmanagement")
 public class TableBooking {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bookingId", nullable = false)
+    @Column(name = "availabilityId", nullable = false)
     private Integer id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tableId", nullable = false)
-    private Tables table;
-
-    @Size(max = 150)
-    @NotNull
-    @Column(name = "customerName", nullable = false, length = 150)
-    private String customerName;
-
-    @Size(max = 15)
-    @Column(name = "phoneNumber", length = 15)
-    private String phoneNumber;
-
-    @Column(name = "reservedTime")
-    private Instant reservedTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tableId")
+    private RestaurantTable table;
 
     @NotNull
-    @Column(name = "numberOfGuests", nullable = false)
-    private Integer numberOfGuests;
+    @Column(name = "bookingDate", nullable = false)
+    private LocalDate bookingDate;
 
     @NotNull
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "createAt", nullable = false)
-    private Instant createAt = Instant.now();
+    @Column(name = "bookingTime", nullable = false)
+    private LocalTime bookingTime;
 
-    @NotNull
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt = Instant.now();
+    @ColumnDefault("0")
+    @Column(name = "isReserved")
+    private Boolean isReserved;
+
+    @ColumnDefault("'available'")
+    @Lob
+    @Column(name = "status")
+    private String status;
 
 }
