@@ -15,6 +15,7 @@ import java.time.LocalTime;
 @Table(name = "reservations", schema = "restaurantmanagement")
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservationId", nullable = false)
     private Integer id;
 
@@ -42,5 +43,4 @@ public class Reservation {
     @Size(max = 255)
     @Column(name = "specialRequest")
     private String specialRequest;
-
 }

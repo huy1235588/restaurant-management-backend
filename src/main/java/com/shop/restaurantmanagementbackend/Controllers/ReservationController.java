@@ -3,7 +3,6 @@ package com.shop.restaurantmanagementbackend.Controllers;
 import com.shop.restaurantmanagementbackend.Models.Reservation;
 import com.shop.restaurantmanagementbackend.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +14,16 @@ public class ReservationController {
 
     // API để thêm một khách hàng mới
     @PostMapping
-    public ResponseEntity<Reservation> createReservation(
+    public ResponseEntity<?> createReservation(
             @RequestBody Reservation reservation,
             @RequestParam String status
     ) {
-        Reservation savedReservation = reservationService.createReservation(reservation, status);
+        try {
+            Reservation savedReservation = reservationService.createReservation(reservation, status);
 
-        return new ResponseEntity<>(savedReservation, HttpStatus.CREATED);
+            return ResponseEntity.ok(savedReservation);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
