@@ -19,6 +19,11 @@ public class KitchenOrderService {
         return kitchenOrderRepository.findAllByBillId(billId);
     }
 
+    // Lấy kitchenOrder theo status
+    public List<KitchenOrder> getKitchenOrderByStatus(String status) {
+        return kitchenOrderRepository.findAllByStatus(status);
+    }
+
     // Tạo kitchenOrder mới
     public KitchenOrder createKitchenOrder(
             Bill bill,

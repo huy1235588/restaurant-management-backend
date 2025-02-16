@@ -23,6 +23,8 @@ public class KitchenOrderDTO {
     private String cancelReason;
     private BigDecimal totalPrice;
 
+    private Integer tableId;
+
     public static KitchenOrderDTO fromEntity(KitchenOrder kitchenOrder) {
         KitchenOrderDTO dto = new KitchenOrderDTO();
         dto.setId(kitchenOrder.getId());
@@ -51,6 +53,8 @@ public class KitchenOrderDTO {
         dto.setOrderTime(kitchenOrder.getOrderTime());
         dto.setStatus(kitchenOrder.getStatus());
         dto.setCancelReason(kitchenOrder.getCancelReason());
+
+        dto.setTableId(kitchenOrder.getBill().getTable().getId());
 
         return dto;
     }
