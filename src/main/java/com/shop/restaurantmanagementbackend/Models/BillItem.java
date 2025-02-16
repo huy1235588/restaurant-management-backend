@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "billitems", schema = "restaurantmanagement")
-public class BilliIem {
+public class BillItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "billItemId", nullable = false)
     private Integer id;
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,6 +18,10 @@ public class KitchenOrder {
     @Id
     @Column(name = "orderId", nullable = false)
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "billId")
+    private Bill bill;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staffId")
@@ -33,7 +38,7 @@ public class KitchenOrder {
     @NotNull
     @ColumnDefault("current_timestamp()")
     @Column(name = "orderTime", nullable = false)
-    private Instant orderTime;
+    private LocalDateTime orderTime;
 
     @ColumnDefault("'pending'")
     @Lob
@@ -43,5 +48,4 @@ public class KitchenOrder {
     @Size(max = 255)
     @Column(name = "cancelReason")
     private String cancelReason;
-
 }

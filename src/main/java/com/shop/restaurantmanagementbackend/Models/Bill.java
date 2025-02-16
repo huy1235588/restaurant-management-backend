@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ import java.time.Instant;
 @Table(name = "bills", schema = "restaurantmanagement")
 public class Bill {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "billId", nullable = false)
     private Integer id;
 
@@ -41,7 +43,7 @@ public class Bill {
     @NotNull
     @ColumnDefault("current_timestamp()")
     @Column(name = "billTime", nullable = false)
-    private Instant billTime;
+    private LocalDateTime billTime;
 
     @NotNull
     @Lob
