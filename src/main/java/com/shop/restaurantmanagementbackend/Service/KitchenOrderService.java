@@ -28,4 +28,13 @@ public class KitchenOrderService {
     public List<KitchenOrder> addKitchenOrder(List<KitchenOrder> kitchenOrders) {
         return kitchenOrderRepository.saveAll(kitchenOrders);
     }
+
+    // Cập nhật kitchenOrder status
+    public void updateKitchenOrderStatus(Integer id, String status) {
+        KitchenOrder kitchenOrder = kitchenOrderRepository.findById(id).orElse(null);
+        if (kitchenOrder != null) {
+            kitchenOrder.setStatus(status);
+            kitchenOrderRepository.save(kitchenOrder);
+        }
+    }
 }

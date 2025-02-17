@@ -20,6 +20,10 @@ public class BillItemService {
     }
 
     // Tạo billItem mới
+    public BillItem addBillItem(BillItem billItem) {
+        return billItemRepository.save(billItem);
+    }
+
     public BillItem CreateBillItem(
             Bill bill,
             Menu menu,

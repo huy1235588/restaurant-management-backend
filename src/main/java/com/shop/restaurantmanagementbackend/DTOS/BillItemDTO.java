@@ -1,6 +1,8 @@
 package com.shop.restaurantmanagementbackend.DTOS;
 
+import com.shop.restaurantmanagementbackend.Models.Bill;
 import com.shop.restaurantmanagementbackend.Models.BillItem;
+import com.shop.restaurantmanagementbackend.Models.Menu;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,5 +35,26 @@ public class BillItemDTO {
 
         dto.setQuantity(billItem.getQuantity());
         return dto;
+    }
+
+    public static BillItem toEntity(BillItemDTO billItemDTO) {
+        BillItem billItem = new BillItem();
+        billItem.setId(billItemDTO.getId());
+        billItem.setQuantity(billItemDTO.getQuantity());
+
+        // Thiết lập Bill từ billId
+        if (billItemDTO.billId != null) {
+            Bill bill = new Bill();
+            bill.setId(billItemDTO.billId);
+            billItem.setBill(bill);
+        }
+
+        // Thiết lập Menu từ itemId
+        if (billItemDTO.itemId != null) {
+            Menu item = new Menu();
+            item.setItemId(billItemDTO.itemId);
+            billItem.setItem(item);
+        }
+        return billItem;
     }
 }

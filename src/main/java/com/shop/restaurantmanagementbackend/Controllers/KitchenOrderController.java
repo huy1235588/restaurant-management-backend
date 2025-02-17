@@ -4,6 +4,7 @@ import com.shop.restaurantmanagementbackend.DTOS.BillItemDTO;
 import com.shop.restaurantmanagementbackend.DTOS.KitchenOrderDTO;
 import com.shop.restaurantmanagementbackend.Models.BillItem;
 import com.shop.restaurantmanagementbackend.Models.KitchenOrder;
+import com.shop.restaurantmanagementbackend.Service.BillItemService;
 import com.shop.restaurantmanagementbackend.Service.KitchenOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ import java.util.List;
 public class KitchenOrderController {
     @Autowired
     private KitchenOrderService kitchenOrderService;
+
+    @Autowired
+    private BillItemService billItemService;
 
     // Lấy kitchenOrder theo billId
     @GetMapping("/all/{billId}")
@@ -49,5 +53,20 @@ public class KitchenOrderController {
         kitchenOrderService.addKitchenOrder(kitchenOrders);
 
         return "Add kitchen order successfully!";
+    }
+
+    // Cập nhật kitchenOrder status
+    @PutMapping("/updateStatus")
+    public String updateKitchenOrderStatus(
+            @RequestParam Integer orderId,
+            @RequestParam String status,
+            @RequestBody BillItemDTO billItemDTO
+    ) {
+        kitchenOrderService.updateKitchenOrderStatus(orderId, status);
+
+        BillItem billItem = BillItemDTO.toEntity(billItemDTO);
+        billItemService.addBillItem(billItem);
+
+        return "Update kitchen order status successfully!";
     }
 }
