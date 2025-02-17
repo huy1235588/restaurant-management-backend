@@ -25,17 +25,7 @@ public class KitchenOrderService {
     }
 
     // Tạo kitchenOrder mới
-    public KitchenOrder createKitchenOrder(
-            Bill bill,
-            Menu menu,
-            Integer quantity
-    ) {
-        KitchenOrder kitchenOrder = new KitchenOrder();
-
-        kitchenOrder.setBill(bill);
-        kitchenOrder.setItem(menu);
-        kitchenOrder.setQuantity(quantity);
-
-        return kitchenOrderRepository.save(kitchenOrder);
+    public List<KitchenOrder> addKitchenOrder(List<KitchenOrder> kitchenOrders) {
+        return kitchenOrderRepository.saveAll(kitchenOrders);
     }
 }

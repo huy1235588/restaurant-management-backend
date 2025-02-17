@@ -1,7 +1,6 @@
 package com.shop.restaurantmanagementbackend.DTOS;
 
-import com.shop.restaurantmanagementbackend.Models.BillItem;
-import com.shop.restaurantmanagementbackend.Models.KitchenOrder;
+import com.shop.restaurantmanagementbackend.Models.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +24,7 @@ public class KitchenOrderDTO {
 
     private Integer tableId;
 
+    // Chuyển từ DTO sang Entity
     public static KitchenOrderDTO fromEntity(KitchenOrder kitchenOrder) {
         KitchenOrderDTO dto = new KitchenOrderDTO();
         dto.setId(kitchenOrder.getId());
@@ -57,5 +57,37 @@ public class KitchenOrderDTO {
         dto.setTableId(kitchenOrder.getBill().getTable().getId());
 
         return dto;
+    }
+
+    // Chuyển từ DTO sang Entity
+    public KitchenOrder toEntity() {
+        KitchenOrder kitchenOrder = new KitchenOrder();
+        kitchenOrder.setId(this.id);
+        kitchenOrder.setQuantity(this.quantity);
+        kitchenOrder.setOrderTime(this.orderTime);
+        kitchenOrder.setStatus(this.status);
+        kitchenOrder.setCancelReason(this.cancelReason);
+
+        // Thiết lập Bill từ billId
+        if (this.billId != null) {
+            Bill bill = new Bill();
+            bill.setId(this.billId);
+            kitchenOrder.setBill(bill);
+        }
+
+        // Thiết lập Staff từ staffId
+        if (this.staffId != null) {
+            Staff staff = new Staff();
+            staff.setId(this.staffId);
+            kitchenOrder.setStaff(staff);
+        }
+
+        // Thiết lập Menu (item) từ itemId
+        if (this.itemId != null) {
+            Menu menuItem = new Menu();
+            menuItem.setItemId(this.itemId); // Giả sử Menu có phương thức setItemId()
+            kitchenOrder.setItem(menuItem);
+        }
+        return kitchenOrder;
     }
 }

@@ -38,4 +38,16 @@ public class KitchenOrderController {
 
         return ResponseEntity.ok(kitchenOrderDTO);
     }
+
+    // Thêm kitchenOrder mới
+    @PostMapping("/add")
+    public String addKitchenOrder(@RequestBody List<KitchenOrderDTO> kitchenOrderDTO) {
+        List<KitchenOrder> kitchenOrders = kitchenOrderDTO.stream()
+                .map(KitchenOrderDTO::toEntity)
+                .toList();
+
+        kitchenOrderService.addKitchenOrder(kitchenOrders);
+
+        return "Add kitchen order successfully!";
+    }
 }
