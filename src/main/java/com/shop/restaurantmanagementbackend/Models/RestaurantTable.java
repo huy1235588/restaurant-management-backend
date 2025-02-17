@@ -13,6 +13,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "restauranttables", schema = "restaurantmanagement")
 public class RestaurantTable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tableId", nullable = false)
     private Integer id;
 
