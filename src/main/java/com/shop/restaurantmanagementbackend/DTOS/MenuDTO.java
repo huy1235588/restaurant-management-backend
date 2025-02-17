@@ -1,6 +1,7 @@
 package com.shop.restaurantmanagementbackend.DTOS;
 
 import com.shop.restaurantmanagementbackend.Models.Category;
+import com.shop.restaurantmanagementbackend.Models.Menu;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -23,4 +24,18 @@ public class MenuDTO {
     private Integer categoryId;
     private BigDecimal price;
     private String description;
+
+    public static Menu toEntity(MenuDTO menuDTO) {
+        Menu menu = new Menu();
+        menu.setItemId(menuDTO.getItemId());
+        menu.setItemName(menuDTO.getItemName());
+        menu.setPrice(menuDTO.getPrice());
+        menu.setDescription(menuDTO.getDescription());
+
+        Category category = new Category();
+        category.setId(menuDTO.getCategoryId());
+        menu.setCategory(category);
+
+        return menu;
+    }
 }

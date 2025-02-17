@@ -1,6 +1,7 @@
 package com.shop.restaurantmanagementbackend.Service;
 
 import com.shop.restaurantmanagementbackend.DTOS.MenuDTO;
+import com.shop.restaurantmanagementbackend.Models.Category;
 import com.shop.restaurantmanagementbackend.Models.Menu;
 import com.shop.restaurantmanagementbackend.Repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,32 @@ public class MenuService {
                         menu.getDescription()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    // Thêm món ăn
+    public void addFood(MenuDTO menuDTO) {
+        Menu menu = MenuDTO.toEntity(menuDTO);
+        menuRepository.save(menu);
+    }
+
+    // Xoá món ăn
+    public void deleteFood(String itemId) {
+        menuRepository.deleteById(itemId);
+    }
+
+    // Cập nhật món ăn theo itemId
+    public void updateFood(String itemId, MenuDTO menuDTO) {
+        Menu menu = menuRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Menu not found"));
+
+        menu.setItemName(menuDTO.getItemName());
+        menu.setPrice(menuDTO.getPrice());
+        menu.setDescription(menuDTO.getDescription());
+
+        // Mapping Category id to Category entity
+        Category category = new Category();
+        category.setId(menuDTO.getCategoryId());
+        menu.setCategory(category);
+
+        menuRepository.save(menu);
     }
 }
