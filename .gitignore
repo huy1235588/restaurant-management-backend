@@ -34,3 +34,5 @@ build/
 
 # SSL
 *.p12
+
+src/main/resources/local.env
